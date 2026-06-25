@@ -7,17 +7,25 @@ class AdministradorRepository(
     private val administradorDao: AdministradorDao
 ) {
 
-    fun obtenerTodos() =
-        administradorDao.obtenerTodos()
-
-    suspend fun obtenerPorId(id: Int) =
-        administradorDao.obtenerPorId(id)
-
     suspend fun insertar(
         administrador: AdministradorEntity
-    ) = administradorDao.insertar(administrador)
+    ) =
+        administradorDao.insertar(
+            administrador
+        )
 
     suspend fun eliminar(
         administrador: AdministradorEntity
-    ) = administradorDao.eliminar(administrador)
+    ) =
+        administradorDao.eliminar(
+            administrador
+        )
+
+    suspend fun obtenerPorId(
+        id: Int
+    ) =
+        administradorDao.obtenerPorId(id)
+
+    fun obtenerAdministradoresCompletos() =
+        administradorDao.obtenerAdministradoresCompletos()
 }

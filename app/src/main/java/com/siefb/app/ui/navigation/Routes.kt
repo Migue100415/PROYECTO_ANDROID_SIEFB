@@ -1,20 +1,22 @@
 package com.siefb.app.ui.navigation
 
-sealed class Routes(val route: String) {
+sealed class Routes(
+    val route: String
+) {
 
-    data object Home : Routes("home")
+    data object Home :
+        Routes("home")
 
-    data object Jugadores : Routes("jugadores")
+    data object Jugadores :
+        Routes("jugadores")
 
     data object JugadorForm :
         Routes("jugador_form/{jugadorId}") {
 
         fun createRoute(
             jugadorId: Int = -1
-        ): String {
-
-            return "jugador_form/$jugadorId"
-        }
+        ) =
+            "jugador_form/$jugadorId"
     }
 
     data object Trabajadores :
@@ -25,9 +27,13 @@ sealed class Routes(val route: String) {
 
         fun createRoute(
             trabajadorId: Int = -1
-        ): String {
-
-            return "trabajador_form/$trabajadorId"
-        }
+        ) =
+            "trabajador_form/$trabajadorId"
     }
+
+    data object Administradores :
+        Routes("administradores")
+
+    data object AdministradorForm :
+        Routes("administrador_form")
 }

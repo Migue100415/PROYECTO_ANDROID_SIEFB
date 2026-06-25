@@ -14,12 +14,16 @@ import androidx.compose.runtime.Composable
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+
     onJugadoresClick: () -> Unit,
-    onTrabajadoresClick: () -> Unit
+
+    onTrabajadoresClick: () -> Unit,
+
+    onAdministradoresClick: () -> Unit
+
 ) {
 
     Scaffold(
@@ -43,8 +47,7 @@ fun HomeScreen(
 
             Button(
                 onClick = onJugadoresClick,
-                modifier =
-                    Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
 
                 Text(
@@ -54,12 +57,24 @@ fun HomeScreen(
 
             Button(
                 onClick = onTrabajadoresClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text(
+                    "Gestión de Trabajadores"
+                )
+            }
+
+            Button(
+                onClick =
+                    onAdministradoresClick,
+
                 modifier =
                     Modifier.fillMaxWidth()
             ) {
 
                 Text(
-                    "Gestión de Trabajadores"
+                    "Gestión de Administradores"
                 )
             }
         }

@@ -24,6 +24,11 @@ import com.siefb.app.ui.screens.jugadores.JugadorListScreen
 import com.siefb.app.ui.screens.trabajadores.TrabajadorFormScreen
 import com.siefb.app.ui.screens.trabajadores.TrabajadorListScreen
 
+import com.siefb.app.viewmodel.administrador.AdministradorViewModel
+
+import com.siefb.app.ui.screens.administradores.AdministradorListScreen
+import com.siefb.app.ui.screens.administradores.AdministradorFormScreen
+
 @Composable
 fun AppNavigation() {
 
@@ -51,6 +56,15 @@ fun AppNavigation() {
                 )
         )
 
+    val administradorViewModel:
+            AdministradorViewModel =
+        viewModel(
+            factory =
+                AppViewModelFactory(
+                    application
+                )
+        )
+
     NavHost(
         navController = navController,
         startDestination = Routes.Home.route
@@ -59,7 +73,6 @@ fun AppNavigation() {
         composable(
             Routes.Home.route
         ) {
-
 
             HomeScreen(
 
@@ -74,6 +87,11 @@ fun AppNavigation() {
 
                     navController.navigate(
                         Routes.Trabajadores.route
+                    )
+                },
+                onAdministradoresClick = {
+                    navController.navigate(
+                        Routes.Administradores.route
                     )
                 }
             )
@@ -192,5 +210,40 @@ fun AppNavigation() {
                 }
             )
         }
+
+        composable(
+            Routes.Administradores.route
+        ) {
+
+            AdministradorListScreen(
+
+                viewModel =
+                    administradorViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+                        Routes.AdministradorForm.route
+                    )
+                }
+            )
+        }
+
+        composable(
+            Routes.AdministradorForm.route
+        ) {
+
+            AdministradorFormScreen(
+
+                viewModel =
+                    administradorViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+                }
+            )
+        }
+
     }
 }
