@@ -7,7 +7,7 @@ class JugadorRepository(
     private val jugadorDao: JugadorDao
 ) {
 
-    fun obtenerTodos() = jugadorDao.obtenerTodos()
+    fun obtenerJugadoresCompletos() = jugadorDao.obtenerJugadoresCompletos()
 
     suspend fun obtenerPorId(id: Int) =
         jugadorDao.obtenerPorId(id)

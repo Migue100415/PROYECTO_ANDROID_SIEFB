@@ -44,17 +44,32 @@ fun AppNavigation() {
 
             JugadorListScreen(
                 viewModel = jugadorViewModel,
+
                 onAgregarClick = {
                     navController.navigate(
-                        Routes.NuevoJugador.route
+                        Routes.JugadorForm.createRoute()
+                    )
+                },
+
+                onEditarClick = { jugadorId ->
+                    navController.navigate(
+                        Routes.JugadorForm.createRoute(jugadorId)
                     )
                 }
             )
         }
 
-        composable(Routes.NuevoJugador.route) {
+        composable(
+            route = Routes.JugadorForm.route
+        ) { backStackEntry ->
+
+            val jugadorId = backStackEntry
+                .arguments
+                ?.getString("jugadorId")
+                ?.toIntOrNull() ?: -1
 
             JugadorFormScreen(
+                jugadorId = jugadorId,
                 viewModel = jugadorViewModel,
                 onGuardar = {
                     navController.popBackStack()

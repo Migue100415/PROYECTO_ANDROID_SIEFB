@@ -6,5 +6,10 @@ sealed class Routes(val route: String) {
 
     data object Jugadores : Routes("jugadores")
 
-    data object NuevoJugador : Routes("nuevo_jugador")
+    data object JugadorForm : Routes("jugador_form/{jugadorId}") {
+
+        fun createRoute(jugadorId: Int = -1): String {
+            return "jugador_form/$jugadorId"
+        }
+    }
 }

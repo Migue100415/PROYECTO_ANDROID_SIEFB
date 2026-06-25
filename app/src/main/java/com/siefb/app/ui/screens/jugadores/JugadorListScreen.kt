@@ -1,5 +1,8 @@
 package com.siefb.app.ui.screens.jugadores
 
+import androidx.benchmark.traceprocessor.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,12 +19,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import com.siefb.app.viewmodel.jugador.JugadorViewModel
+import androidx.compose.material3.IconButton
 
 @Composable
 fun JugadorListScreen(
     viewModel: JugadorViewModel,
-    onAgregarClick: () -> Unit
+    onAgregarClick: () -> Unit,
+    onEditarClick: (Int) -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
@@ -48,7 +55,7 @@ fun JugadorListScreen(
                 .padding(16.dp)
         ) {
 
-            items(uiState.jugadores) { jugador ->
+            items(uiState.jugadores) { item ->
 
                 Card(
                     modifier = Modifier
@@ -56,10 +63,47 @@ fun JugadorListScreen(
                         .padding(bottom = 8.dp)
                 ) {
 
-                    Text(
-                        text = "ID: ${jugador.id}",
+                    Row(
                         modifier = Modifier.padding(16.dp)
-                    )
+                    ) {
+
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+
+                            Text(item.persona.nombre)
+
+                            Text(item.persona.documento)
+
+                            Text(
+                                "Acudiente: ${item.jugador.nombreAcudiente}"
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {
+                                onEditarClick(item.persona.id)
+                            }
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "Editar"
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {
+                                viewModel.eliminarJugador(item.persona)
+                            }
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Eliminar"
+                            )
+                        }
+                    }
                 }
             }
         }

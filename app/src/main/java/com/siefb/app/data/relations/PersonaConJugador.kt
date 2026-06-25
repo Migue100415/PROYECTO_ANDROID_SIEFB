@@ -13,5 +13,5 @@ data class PersonaConJugador(
         parentColumn = "id",
         entityColumn = "id"
     )
-    val jugador: JugadorEntity?
+    val jugador: JugadorEntity
 )

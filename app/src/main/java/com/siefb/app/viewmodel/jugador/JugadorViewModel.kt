@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-
+import com.siefb.app.data.relations.PersonaConJugador
 class JugadorViewModel(
     private val personaRepository: PersonaRepository,
     private val jugadorRepository: JugadorRepository
@@ -32,7 +32,7 @@ class JugadorViewModel(
 
         viewModelScope.launch {
 
-            jugadorRepository.obtenerTodos()
+            jugadorRepository.obtenerJugadoresCompletos()
                 .collect { jugadores ->
 
                     _uiState.value = _uiState.value.copy(
@@ -40,6 +40,39 @@ class JugadorViewModel(
                         isLoading = false
                     )
                 }
+        }
+    }
+
+    fun cargarJugador(id: Int) {
+
+        if (id == -1) return
+
+        viewModelScope.launch {
+
+            try {
+
+                val persona =
+                    personaRepository.obtenerPorId(id)
+
+                val jugador =
+                    jugadorRepository.obtenerPorId(id)
+
+                if (persona != null && jugador != null) {
+
+                    _uiState.value = _uiState.value.copy(
+                        jugadorSeleccionado = PersonaConJugador(
+                            persona = persona,
+                            jugador = jugador
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+
+                _uiState.value = _uiState.value.copy(
+                    error = e.message
+                )
+            }
         }
     }
 
@@ -54,7 +87,8 @@ class JugadorViewModel(
         fechaNacimiento: LocalDate,
         nombreAcudiente: String,
         diaInscripcion: LocalDate
-    ) {
+    )
+    {
 
         viewModelScope.launch {
 
@@ -89,4 +123,71 @@ class JugadorViewModel(
             }
         }
     }
+
+    fun eliminarJugador(persona: PersonaEntity) {
+
+        viewModelScope.launch {
+
+            try {
+
+                personaRepository.eliminar(persona)
+
+            } catch (e: Exception) {
+
+                _uiState.value = _uiState.value.copy(
+                    error = e.message
+                )
+            }
+        }
+    }
+
+    fun actualizarJugador(
+        id: Int,
+        documento: String,
+        nombre: String,
+        direccion: String,
+        telefono: String,
+        actaMedica: String,
+        eps: String,
+        foto: String,
+        fechaNacimiento: LocalDate,
+        nombreAcudiente: String,
+        diaInscripcion: LocalDate
+    ) {
+
+        viewModelScope.launch {
+
+            try {
+
+                personaRepository.actualizar(
+                    PersonaEntity(
+                        id = id,
+                        documento = documento,
+                        nombre = nombre,
+                        direccion = direccion,
+                        telefono = telefono,
+                        actaMedica = actaMedica,
+                        eps = eps,
+                        foto = foto,
+                        fechaNacimiento = fechaNacimiento
+                    )
+                )
+
+                jugadorRepository.actualizar(
+                    JugadorEntity(
+                        id = id,
+                        nombreAcudiente = nombreAcudiente,
+                        diaInscripcion = diaInscripcion
+                    )
+                )
+
+            } catch (e: Exception) {
+
+                _uiState.value = _uiState.value.copy(
+                    error = e.message
+                )
+            }
+        }
+    }
+
 }
