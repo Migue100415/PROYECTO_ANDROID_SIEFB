@@ -7,8 +7,8 @@ class TrabajadorRepository(
     private val trabajadorDao: TrabajadorDao
 ) {
 
-    fun obtenerTodos() =
-        trabajadorDao.obtenerTodos()
+    fun obtenerTrabajadoresCompletos() =
+        trabajadorDao.obtenerTrabajadoresCompletos()
 
     suspend fun obtenerPorId(id: Int) =
         trabajadorDao.obtenerPorId(id)

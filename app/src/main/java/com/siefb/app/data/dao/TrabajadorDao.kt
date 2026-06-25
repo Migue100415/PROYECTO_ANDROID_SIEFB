@@ -5,8 +5,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.siefb.app.data.entities.TrabajadorEntity
+import com.siefb.app.data.relations.PersonaConTrabajador
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,8 +23,17 @@ interface TrabajadorDao {
     @Delete
     suspend fun eliminar(trabajador: TrabajadorEntity)
 
-    @Query("SELECT * FROM trabajador ORDER BY diaIngreso DESC")
-    fun obtenerTodos(): Flow<List<TrabajadorEntity>>
+    @Transaction
+    @Query("""
+    SELECT *
+    FROM persona
+    WHERE id IN (
+        SELECT id
+        FROM trabajador
+    )
+    ORDER BY nombre
+""")
+    fun obtenerTrabajadoresCompletos(): Flow<List<PersonaConTrabajador>>
 
     @Query("SELECT * FROM trabajador WHERE id = :id")
     suspend fun obtenerPorId(id: Int): TrabajadorEntity?

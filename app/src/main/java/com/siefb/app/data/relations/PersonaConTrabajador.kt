@@ -14,5 +14,5 @@ data class PersonaConTrabajador(
         parentColumn = "id",
         entityColumn = "id"
     )
-    val trabajador: TrabajadorEntity?
+    val trabajador: TrabajadorEntity
 )
