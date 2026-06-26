@@ -4,20 +4,36 @@ import com.siefb.app.data.dao.ProfesionalDeportivoDao
 import com.siefb.app.data.entities.ProfesionalDeportivoEntity
 
 class ProfesionalDeportivoRepository(
-    private val profesionalDao: ProfesionalDeportivoDao
+
+    private val profesionalDeportivoDao:
+    ProfesionalDeportivoDao
+
 ) {
 
-    fun obtenerTodos() =
-        profesionalDao.obtenerTodos()
-
-    suspend fun obtenerPorId(id: Int) =
-        profesionalDao.obtenerPorId(id)
-
     suspend fun insertar(
-        profesional: ProfesionalDeportivoEntity
-    ) = profesionalDao.insertar(profesional)
+        profesionalDeportivo:
+        ProfesionalDeportivoEntity
+    ) =
+        profesionalDeportivoDao.insertar(
+            profesionalDeportivo
+        )
 
     suspend fun eliminar(
-        profesional: ProfesionalDeportivoEntity
-    ) = profesionalDao.eliminar(profesional)
+        profesionalDeportivo:
+        ProfesionalDeportivoEntity
+    ) =
+        profesionalDeportivoDao.eliminar(
+            profesionalDeportivo
+        )
+
+    suspend fun obtenerPorId(
+        id: Int
+    ) =
+        profesionalDeportivoDao.obtenerPorId(
+            id
+        )
+
+    fun obtenerProfesionalesCompletos() =
+        profesionalDeportivoDao
+            .obtenerProfesionalesCompletos()
 }

@@ -10,6 +10,7 @@ import com.siefb.app.SiefbApplication
 import com.siefb.app.viewmodel.jugador.JugadorViewModel
 import com.siefb.app.viewmodel.trabajador.TrabajadorViewModel
 import com.siefb.app.viewmodel.administrador.AdministradorViewModel
+import com.siefb.app.viewmodel.profesionaldeportivo.ProfesionalDeportivoViewModel
 
 class AppViewModelFactory(
     private val application: Application
@@ -54,6 +55,16 @@ class AppViewModelFactory(
                     container.administradorRepository
                 ) as T
             }
+
+            modelClass.isAssignableFrom(
+                ProfesionalDeportivoViewModel::class.java
+            ) -> {
+
+                ProfesionalDeportivoViewModel(
+                    container.profesionalDeportivoRepository
+                ) as T
+            }
+
 
             else -> {
 

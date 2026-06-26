@@ -36,4 +36,11 @@ sealed class Routes(
 
     data object AdministradorForm :
         Routes("administrador_form")
+
+    data object ProfesionalesDeportivos :
+        Routes("profesionales_deportivos")
+
+    data object ProfesionalDeportivoForm :
+        Routes("profesional_deportivo_form")
+
 }

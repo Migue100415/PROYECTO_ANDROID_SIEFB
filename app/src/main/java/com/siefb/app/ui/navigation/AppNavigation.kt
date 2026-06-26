@@ -28,6 +28,9 @@ import com.siefb.app.viewmodel.administrador.AdministradorViewModel
 
 import com.siefb.app.ui.screens.administradores.AdministradorListScreen
 import com.siefb.app.ui.screens.administradores.AdministradorFormScreen
+import com.siefb.app.viewmodel.profesionaldeportivo.ProfesionalDeportivoViewModel
+import com.siefb.app.ui.screens.profesionaldeportivo.ProfesionalDeportivoListScreen
+import com.siefb.app.ui.screens.profesionaldeportivo.ProfesionalDeportivoFormScreen
 
 @Composable
 fun AppNavigation() {
@@ -65,6 +68,13 @@ fun AppNavigation() {
                 )
         )
 
+    val profesionalViewModel:
+            ProfesionalDeportivoViewModel =
+        viewModel(
+            factory =
+                AppViewModelFactory(application)
+        )
+
     NavHost(
         navController = navController,
         startDestination = Routes.Home.route
@@ -93,7 +103,15 @@ fun AppNavigation() {
                     navController.navigate(
                         Routes.Administradores.route
                     )
+                },
+
+                onProfesionalesClick = {
+                    navController.navigate(
+                        Routes.ProfesionalesDeportivos.route
+                    )
                 }
+
+
             )
         }
 
@@ -244,6 +262,39 @@ fun AppNavigation() {
                 }
             )
         }
+
+        composable(
+            Routes.ProfesionalesDeportivos.route
+        ) {
+
+            ProfesionalDeportivoListScreen(
+
+                viewModel = profesionalViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+                        Routes.ProfesionalDeportivoForm.route
+                    )
+                }
+            )
+        }
+
+        composable(
+            Routes.ProfesionalDeportivoForm.route
+        ) {
+
+            ProfesionalDeportivoFormScreen(
+
+                viewModel = profesionalViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+                }
+            )
+        }
+
 
     }
 }

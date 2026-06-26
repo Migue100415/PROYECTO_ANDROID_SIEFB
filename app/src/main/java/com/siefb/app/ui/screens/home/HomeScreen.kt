@@ -22,7 +22,9 @@ fun HomeScreen(
 
     onTrabajadoresClick: () -> Unit,
 
-    onAdministradoresClick: () -> Unit
+    onAdministradoresClick: () -> Unit,
+
+    onProfesionalesClick: () -> Unit
 
 ) {
 
@@ -76,6 +78,13 @@ fun HomeScreen(
                 Text(
                     "Gestión de Administradores"
                 )
+            }
+
+            Button(
+                onClick = onProfesionalesClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Gestión de Profesionales Deportivos")
             }
         }
     }
