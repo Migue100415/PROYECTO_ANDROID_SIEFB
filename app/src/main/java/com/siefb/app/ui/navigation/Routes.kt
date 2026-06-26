@@ -43,4 +43,22 @@ sealed class Routes(
     data object ProfesionalDeportivoForm :
         Routes("profesional_deportivo_form")
 
+    data object Entrenamientos :
+
+        Routes("entrenamientos")
+
+    data object EntrenamientoForm :
+
+        Routes("entrenamiento_form/{entrenamientoId}") {
+
+        fun createRoute(
+
+            entrenamientoId: Int = -1
+
+        ) =
+
+            "entrenamiento_form/$entrenamientoId"
+
+    }
+
 }

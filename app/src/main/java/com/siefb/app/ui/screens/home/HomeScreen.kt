@@ -24,7 +24,9 @@ fun HomeScreen(
 
     onAdministradoresClick: () -> Unit,
 
-    onProfesionalesClick: () -> Unit
+    onProfesionalesClick: () -> Unit,
+
+    onEntrenamientosClick: () -> Unit
 
 ) {
 
@@ -86,6 +88,23 @@ fun HomeScreen(
             ) {
                 Text("Gestión de Profesionales Deportivos")
             }
+
+            Button(
+
+                onClick = onEntrenamientosClick,
+
+                modifier = Modifier.fillMaxWidth()
+
+            ) {
+
+                Text(
+
+                    "Gestión de Entrenamientos"
+
+                )
+
+            }
+
         }
     }
 }

@@ -12,7 +12,7 @@ class EntrenamientoRepository(
 
     suspend fun insertar(
         entrenamiento: EntrenamientoEntity
-    ): Long = entrenamientoDao.insertar(entrenamiento)
+    ) = entrenamientoDao.insertar(entrenamiento)
 
     suspend fun actualizar(
         entrenamiento: EntrenamientoEntity
@@ -21,4 +21,9 @@ class EntrenamientoRepository(
     suspend fun eliminar(
         entrenamiento: EntrenamientoEntity
     ) = entrenamientoDao.eliminar(entrenamiento)
+
+    suspend fun obtenerPorId(
+        id: Int
+    ): EntrenamientoEntity? =
+        entrenamientoDao.obtenerPorId(id)
 }

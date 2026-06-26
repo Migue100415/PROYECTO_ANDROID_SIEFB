@@ -26,10 +26,7 @@ class AppContainer(context: Context) {
             database.profesionalDeportivoDao()
         )
 
-    val entrenamientoRepository =
-        EntrenamientoRepository(
-            database.entrenamientoDao()
-        )
+
 
     val partidoRepository =
         PartidoRepository(
@@ -50,4 +47,13 @@ class AppContainer(context: Context) {
         RegistroContableRepository(
             database.registroContableDao()
         )
+    val entrenamientoRepository =
+
+        EntrenamientoRepository(
+
+            database.entrenamientoDao()
+
+        )
+
+
 }

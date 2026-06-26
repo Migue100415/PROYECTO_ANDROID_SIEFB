@@ -31,6 +31,11 @@ import com.siefb.app.ui.screens.administradores.AdministradorFormScreen
 import com.siefb.app.viewmodel.profesionaldeportivo.ProfesionalDeportivoViewModel
 import com.siefb.app.ui.screens.profesionaldeportivo.ProfesionalDeportivoListScreen
 import com.siefb.app.ui.screens.profesionaldeportivo.ProfesionalDeportivoFormScreen
+import com.siefb.app.viewmodel.entrenamiento.EntrenamientoViewModel
+
+import com.siefb.app.ui.screens.entrenamiento.EntrenamientoListScreen
+
+import com.siefb.app.ui.screens.entrenamiento.EntrenamientoFormScreen
 
 @Composable
 fun AppNavigation() {
@@ -75,6 +80,17 @@ fun AppNavigation() {
                 AppViewModelFactory(application)
         )
 
+    val entrenamientoViewModel:
+
+            EntrenamientoViewModel =
+
+        viewModel(
+
+            factory =
+                AppViewModelFactory(application)
+
+        )
+
     NavHost(
         navController = navController,
         startDestination = Routes.Home.route
@@ -109,6 +125,15 @@ fun AppNavigation() {
                     navController.navigate(
                         Routes.ProfesionalesDeportivos.route
                     )
+                },
+                onEntrenamientosClick = {
+
+                    navController.navigate(
+
+                        Routes.Entrenamientos.route
+
+                    )
+
                 }
 
 
@@ -293,6 +318,82 @@ fun AppNavigation() {
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable(
+
+            Routes.Entrenamientos.route
+
+        ) {
+
+            EntrenamientoListScreen(
+
+                viewModel = entrenamientoViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+
+                        Routes.EntrenamientoForm
+                            .createRoute()
+
+                    )
+
+                },
+
+                onEditarClick = {
+
+                        entrenamientoId ->
+
+                    navController.navigate(
+
+                        Routes.EntrenamientoForm
+                            .createRoute(
+                                entrenamientoId
+                            )
+
+                    )
+
+                }
+
+            )
+
+        }
+
+        composable(
+
+            Routes.EntrenamientoForm.route
+
+        ) {
+
+                backStackEntry ->
+
+            val entrenamientoId =
+
+                backStackEntry.arguments
+
+                    ?.getString(
+                        "entrenamientoId"
+                    )
+
+                    ?.toIntOrNull()
+
+                    ?: -1
+
+            EntrenamientoFormScreen(
+
+                entrenamientoId = entrenamientoId,
+
+                viewModel = entrenamientoViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+
+                }
+
+            )
+
         }
 
 
