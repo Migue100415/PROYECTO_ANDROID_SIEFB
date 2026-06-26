@@ -26,7 +26,9 @@ fun HomeScreen(
 
     onProfesionalesClick: () -> Unit,
 
-    onEntrenamientosClick: () -> Unit
+    onEntrenamientosClick: () -> Unit,
+
+    onPartidosClick: () -> Unit
 
 ) {
 
@@ -103,6 +105,13 @@ fun HomeScreen(
 
                 )
 
+            }
+
+            Button(
+                onClick = onPartidosClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Gestión de Partidos")
             }
 
         }

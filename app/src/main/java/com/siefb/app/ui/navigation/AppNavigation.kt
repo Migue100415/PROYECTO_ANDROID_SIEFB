@@ -32,10 +32,11 @@ import com.siefb.app.viewmodel.profesionaldeportivo.ProfesionalDeportivoViewMode
 import com.siefb.app.ui.screens.profesionaldeportivo.ProfesionalDeportivoListScreen
 import com.siefb.app.ui.screens.profesionaldeportivo.ProfesionalDeportivoFormScreen
 import com.siefb.app.viewmodel.entrenamiento.EntrenamientoViewModel
-
 import com.siefb.app.ui.screens.entrenamiento.EntrenamientoListScreen
-
 import com.siefb.app.ui.screens.entrenamiento.EntrenamientoFormScreen
+import com.siefb.app.ui.screens.partido.PartidoListScreen
+import com.siefb.app.viewmodel.partido.PartidoViewModel
+import com.siefb.app.ui.screens.partido.PartidoFormScreen
 
 @Composable
 fun AppNavigation() {
@@ -91,6 +92,11 @@ fun AppNavigation() {
 
         )
 
+    val partidoViewModel: PartidoViewModel =
+        viewModel(
+            factory = AppViewModelFactory(application)
+        )
+
     NavHost(
         navController = navController,
         startDestination = Routes.Home.route
@@ -132,6 +138,13 @@ fun AppNavigation() {
 
                         Routes.Entrenamientos.route
 
+                    )
+
+                },
+                onPartidosClick = {
+
+                    navController.navigate(
+                        Routes.Partidos.route
                     )
 
                 }
@@ -333,33 +346,23 @@ fun AppNavigation() {
                 onAgregarClick = {
 
                     navController.navigate(
-
-                        Routes.EntrenamientoForm
-                            .createRoute()
-
+                        Routes.EntrenamientoForm.createRoute()
                     )
 
                 },
 
-                onEditarClick = {
-
-                        entrenamientoId ->
+                onEditarClick = { entrenamientoId ->
 
                     navController.navigate(
-
-                        Routes.EntrenamientoForm
-                            .createRoute(
-                                entrenamientoId
-                            )
-
+                        Routes.EntrenamientoForm.createRoute(
+                            entrenamientoId
+                        )
                     )
 
                 }
 
             )
-
         }
-
         composable(
 
             Routes.EntrenamientoForm.route
@@ -385,6 +388,62 @@ fun AppNavigation() {
                 entrenamientoId = entrenamientoId,
 
                 viewModel = entrenamientoViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+
+                }
+
+            )
+
+        }
+
+        composable(
+            Routes.Partidos.route
+        ) {
+
+            PartidoListScreen(
+
+                viewModel = partidoViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+                        Routes.PartidoForm.createRoute()
+                    )
+
+                },
+
+                onEditarClick = { partidoId ->
+
+                    navController.navigate(
+                        Routes.PartidoForm.createRoute(
+                            partidoId
+                        )
+                    )
+
+                }
+
+            )
+
+        }
+
+        composable(
+            Routes.PartidoForm.route
+        ) { backStackEntry ->
+
+            val partidoId =
+                backStackEntry.arguments
+                    ?.getString("partidoId")
+                    ?.toIntOrNull()
+                    ?: -1
+
+            PartidoFormScreen(
+
+                partidoId = partidoId,
+
+                viewModel = partidoViewModel,
 
                 onGuardar = {
 

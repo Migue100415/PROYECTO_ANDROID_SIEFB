@@ -61,4 +61,17 @@ sealed class Routes(
 
     }
 
+    data object Partidos :
+        Routes("partido")
+
+    data object PartidoForm :
+        Routes("partido_form/{partidoId}") {
+
+        fun createRoute(
+            partidoId: Int = -1
+        ) =
+            "partido_form/$partidoId"
+
+    }
+
 }

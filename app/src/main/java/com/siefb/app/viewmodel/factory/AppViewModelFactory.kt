@@ -12,7 +12,7 @@ import com.siefb.app.viewmodel.trabajador.TrabajadorViewModel
 import com.siefb.app.viewmodel.administrador.AdministradorViewModel
 import com.siefb.app.viewmodel.profesionaldeportivo.ProfesionalDeportivoViewModel
 import com.siefb.app.viewmodel.entrenamiento.EntrenamientoViewModel
-
+import com.siefb.app.viewmodel.partido.PartidoViewModel
 
 class AppViewModelFactory(
     private val application: Application
@@ -81,6 +81,15 @@ class AppViewModelFactory(
 
             }
 
+            modelClass.isAssignableFrom(
+                PartidoViewModel::class.java
+            ) -> {
+
+                PartidoViewModel(
+                    container.partidoRepository
+                ) as T
+
+            }
 
             else -> {
 
