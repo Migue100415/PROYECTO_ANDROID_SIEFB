@@ -7,7 +7,7 @@ import com.siefb.app.data.entities.EntrenamientoEntity
 import com.siefb.app.data.entities.JugadorEntity
 import com.siefb.app.data.entities.JugadorEntrenamientoEntity
 
-data class EntrenamientoConJugadores(
+data class JugadorEntrenamientoDetalle(
     @Embedded
     val entrenamiento: EntrenamientoEntity,
 
