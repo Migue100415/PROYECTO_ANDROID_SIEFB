@@ -45,6 +45,10 @@ import com.siefb.app.ui.screens.jugadorentrenamiento.JugadorEntrenamientoFormScr
 import com.siefb.app.ui.screens.jugadorentrenamiento.JugadorEntrenamientoListScreen
 
 import com.siefb.app.viewmodel.jugadorentrenamiento.JugadorEntrenamientoViewModel
+import com.siefb.app.ui.screens.jugadorpartido.JugadorPartidoFormScreen
+import com.siefb.app.ui.screens.jugadorpartido.JugadorPartidoListScreen
+
+import com.siefb.app.viewmodel.jugadorpartido.JugadorPartidoViewModel
 
 @Composable
 fun AppNavigation() {
@@ -113,6 +117,10 @@ fun AppNavigation() {
         viewModel(
             factory = AppViewModelFactory(application)
         )
+    val jugadorPartidoViewModel: JugadorPartidoViewModel =
+        viewModel(
+            factory = AppViewModelFactory(application)
+        )
 
     NavHost(
         navController = navController,
@@ -178,7 +186,14 @@ fun AppNavigation() {
                         Routes.JugadoresEntrenamiento.route
                     )
 
-                }
+                },
+                onJugadorPartidoClick = {
+
+                    navController.navigate(
+                        Routes.JugadoresPartido.route
+                    )
+
+                },
 
             )
         }
@@ -584,6 +599,61 @@ fun AppNavigation() {
                 registroId = registroId,
 
                 viewModel = jugadorEntrenamientoViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+
+                }
+
+            )
+
+        }
+
+        composable(
+            Routes.JugadoresPartido.route
+        ) {
+
+            JugadorPartidoListScreen(
+
+                viewModel = jugadorPartidoViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+                        Routes.JugadorPartidoForm.createRoute()
+                    )
+
+                },
+
+                onEditarClick = { registroId ->
+
+                    navController.navigate(
+                        Routes.JugadorPartidoForm.createRoute(
+                            registroId
+                        )
+                    )
+
+                }
+
+            )
+
+        }
+        composable(
+            Routes.JugadorPartidoForm.route
+        ) { backStackEntry ->
+
+            val registroId =
+                backStackEntry.arguments
+                    ?.getString("registroId")
+                    ?.toIntOrNull()
+                    ?: -1
+
+            JugadorPartidoFormScreen(
+
+                registroId = registroId,
+
+                viewModel = jugadorPartidoViewModel,
 
                 onGuardar = {
 

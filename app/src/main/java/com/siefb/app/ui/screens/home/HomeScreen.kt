@@ -32,7 +32,9 @@ fun HomeScreen(
 
     onRegistrosContablesClick: () -> Unit,
 
-    onJugadorEntrenamientoClick: () -> Unit
+    onJugadorEntrenamientoClick: () -> Unit,
+
+    onJugadorPartidoClick: () -> Unit,
 
 ) {
 
@@ -133,6 +135,15 @@ fun HomeScreen(
             ) {
 
                 Text("Jugador - Entrenamiento")
+
+            }
+
+            Button(
+                onClick = onJugadorPartidoClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text("Jugador - Partido")
 
             }
 

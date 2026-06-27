@@ -1,21 +1,44 @@
 package com.siefb.app.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+
 import com.siefb.app.data.entities.JugadorPartidoEntity
+
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface JugadorPartidoDao {
 
-    @Insert
-    suspend fun insertar(registro: JugadorPartidoEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertar(
+        registro: JugadorPartidoEntity
+    ): Long
+
+    @Update
+    suspend fun actualizar(
+        registro: JugadorPartidoEntity
+    )
+
+    @Delete
+    suspend fun eliminar(
+        registro: JugadorPartidoEntity
+    )
 
     @Query("""
-        SELECT * FROM jugador_partido
-        WHERE partidoId = :partidoId
+        SELECT *
+        FROM jugador_partido
+        ORDER BY id DESC
     """)
-    suspend fun obtenerPorPartido(
-        partidoId: Int
-    ): List<JugadorPartidoEntity>
+    fun obtenerTodos():
+            Flow<List<JugadorPartidoEntity>>
+
+    @Query("""
+        SELECT *
+        FROM jugador_partido
+        WHERE id = :id
+    """)
+    suspend fun obtenerPorId(
+        id: Int
+    ): JugadorPartidoEntity?
+
 }

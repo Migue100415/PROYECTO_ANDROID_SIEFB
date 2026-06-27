@@ -99,5 +99,18 @@ sealed class Routes(
             "jugador_entrenamiento_form/$registroId"
 
     }
+    data object JugadoresPartido :
+        Routes("jugadores_partido")
+
+    data object JugadorPartidoForm :
+        Routes("jugador_partido_form/{registroId}") {
+
+        fun createRoute(
+            registroId: Int = -1
+        ) =
+            "jugador_partido_form/$registroId"
+
+    }
+
 
 }

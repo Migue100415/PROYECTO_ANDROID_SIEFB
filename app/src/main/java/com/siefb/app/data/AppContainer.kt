@@ -5,6 +5,7 @@ import com.siefb.app.data.database.DatabaseProvider
 import com.siefb.app.data.repository.*
 import com.siefb.app.data.repository.RegistroContableRepository
 import com.siefb.app.data.repository.JugadorEntrenamientoRepository
+import com.siefb.app.data.repository.JugadorPartidoRepository
 
 class AppContainer(context: Context) {
 
@@ -35,12 +36,6 @@ class AppContainer(context: Context) {
             database.partidoDao()
         )
 
-
-    val jugadorPartidoRepository =
-        JugadorPartidoRepository(
-            database.jugadorPartidoDao()
-        )
-
     val entrenamientoRepository =
 
         EntrenamientoRepository(
@@ -58,6 +53,10 @@ class AppContainer(context: Context) {
             database.jugadorEntrenamientoDao()
         )
 
+    val jugadorPartidoRepository =
+        JugadorPartidoRepository(
+            database.jugadorPartidoDao()
+        )
 
 
 }
