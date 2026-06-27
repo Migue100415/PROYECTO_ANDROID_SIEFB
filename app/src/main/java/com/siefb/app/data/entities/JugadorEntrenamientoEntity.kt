@@ -2,27 +2,55 @@ package com.siefb.app.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
+
     tableName = "jugador_entrenamiento",
+
     foreignKeys = [
+
         ForeignKey(
+
             entity = JugadorEntity::class,
+
             parentColumns = ["id"],
+
             childColumns = ["jugadorId"],
+
             onDelete = ForeignKey.CASCADE
+
         ),
+
         ForeignKey(
+
             entity = EntrenamientoEntity::class,
+
             parentColumns = ["id"],
+
             childColumns = ["entrenamientoId"],
+
             onDelete = ForeignKey.CASCADE
+
         )
+
+    ],
+
+    indices = [
+
+        Index("jugadorId"),
+
+        Index("entrenamientoId")
+
     ]
+
 )
+
 data class JugadorEntrenamientoEntity(
+
     @PrimaryKey(autoGenerate = true)
+
     val id: Int = 0,
 
     val jugadorId: Int,
@@ -30,4 +58,5 @@ data class JugadorEntrenamientoEntity(
     val entrenamientoId: Int,
 
     val asistencia: Boolean
+
 )

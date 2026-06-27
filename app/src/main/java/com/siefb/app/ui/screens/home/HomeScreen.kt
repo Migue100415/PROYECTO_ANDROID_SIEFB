@@ -32,6 +32,8 @@ fun HomeScreen(
 
     onRegistrosContablesClick: () -> Unit,
 
+    onJugadorEntrenamientoClick: () -> Unit
+
 ) {
 
     Scaffold(
@@ -122,6 +124,15 @@ fun HomeScreen(
             ) {
 
                 Text("Gestión Registro Contable")
+
+            }
+
+            Button(
+                onClick = onJugadorEntrenamientoClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text("Jugador - Entrenamiento")
 
             }
 

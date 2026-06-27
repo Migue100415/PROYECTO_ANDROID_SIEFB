@@ -41,6 +41,10 @@ import com.siefb.app.ui.screens.registrocontable.RegistroContableFormScreen
 import com.siefb.app.ui.screens.registrocontable.RegistroContableListScreen
 
 import com.siefb.app.viewmodel.registrocontable.RegistroContableViewModel
+import com.siefb.app.ui.screens.jugadorentrenamiento.JugadorEntrenamientoFormScreen
+import com.siefb.app.ui.screens.jugadorentrenamiento.JugadorEntrenamientoListScreen
+
+import com.siefb.app.viewmodel.jugadorentrenamiento.JugadorEntrenamientoViewModel
 
 @Composable
 fun AppNavigation() {
@@ -105,6 +109,10 @@ fun AppNavigation() {
         viewModel(
             factory = AppViewModelFactory(application)
         )
+    val jugadorEntrenamientoViewModel: JugadorEntrenamientoViewModel =
+        viewModel(
+            factory = AppViewModelFactory(application)
+        )
 
     NavHost(
         navController = navController,
@@ -164,7 +172,13 @@ fun AppNavigation() {
                     )
 
                 },
+                onJugadorEntrenamientoClick = {
 
+                    navController.navigate(
+                        Routes.JugadoresEntrenamiento.route
+                    )
+
+                }
 
             )
         }
@@ -514,6 +528,62 @@ fun AppNavigation() {
                 registroId = registroId,
 
                 viewModel = registroContableViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+
+                }
+
+            )
+
+        }
+
+        composable(
+            Routes.JugadoresEntrenamiento.route
+        ) {
+
+            JugadorEntrenamientoListScreen(
+
+                viewModel = jugadorEntrenamientoViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+                        Routes.JugadorEntrenamientoForm.createRoute()
+                    )
+
+                },
+
+                onEditarClick = { registroId ->
+
+                    navController.navigate(
+                        Routes.JugadorEntrenamientoForm.createRoute(
+                            registroId
+                        )
+                    )
+
+                }
+
+            )
+
+        }
+
+        composable(
+            Routes.JugadorEntrenamientoForm.route
+        ) { backStackEntry ->
+
+            val registroId =
+                backStackEntry.arguments
+                    ?.getString("registroId")
+                    ?.toIntOrNull()
+                    ?: -1
+
+            JugadorEntrenamientoFormScreen(
+
+                registroId = registroId,
+
+                viewModel = jugadorEntrenamientoViewModel,
 
                 onGuardar = {
 
