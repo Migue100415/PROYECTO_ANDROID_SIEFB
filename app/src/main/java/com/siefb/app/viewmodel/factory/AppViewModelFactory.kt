@@ -13,7 +13,7 @@ import com.siefb.app.viewmodel.administrador.AdministradorViewModel
 import com.siefb.app.viewmodel.profesionaldeportivo.ProfesionalDeportivoViewModel
 import com.siefb.app.viewmodel.entrenamiento.EntrenamientoViewModel
 import com.siefb.app.viewmodel.partido.PartidoViewModel
-
+import com.siefb.app.viewmodel.registrocontable.RegistroContableViewModel
 class AppViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory {
@@ -87,6 +87,16 @@ class AppViewModelFactory(
 
                 PartidoViewModel(
                     container.partidoRepository
+                ) as T
+
+            }
+
+            modelClass.isAssignableFrom(
+                RegistroContableViewModel::class.java
+            ) -> {
+
+                RegistroContableViewModel(
+                    container.registroContableRepository
                 ) as T
 
             }

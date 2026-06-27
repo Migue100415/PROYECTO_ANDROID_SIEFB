@@ -74,4 +74,17 @@ sealed class Routes(
 
     }
 
+    data object RegistrosContables :
+        Routes("registros_contables")
+
+    data object RegistroContableForm :
+        Routes("registro_contable_form/{registroId}") {
+
+        fun createRoute(
+            registroId: Int = -1
+        ) =
+            "registro_contable_form/$registroId"
+
+    }
+
 }

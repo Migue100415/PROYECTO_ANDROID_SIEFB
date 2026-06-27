@@ -4,21 +4,32 @@ import com.siefb.app.data.dao.RegistroContableDao
 import com.siefb.app.data.entities.RegistroContableEntity
 
 class RegistroContableRepository(
-    private val registroContableDao: RegistroContableDao
-) {
 
-    fun obtenerTodos() =
-        registroContableDao.obtenerTodos()
+    private val dao: RegistroContableDao
+
+) {
 
     suspend fun insertar(
         registro: RegistroContableEntity
-    ) = registroContableDao.insertar(registro)
+    ) =
+        dao.insertar(registro)
 
     suspend fun actualizar(
         registro: RegistroContableEntity
-    ) = registroContableDao.actualizar(registro)
+    ) =
+        dao.actualizar(registro)
 
     suspend fun eliminar(
         registro: RegistroContableEntity
-    ) = registroContableDao.eliminar(registro)
+    ) =
+        dao.eliminar(registro)
+
+    suspend fun obtenerPorId(
+        id: Int
+    ) =
+        dao.obtenerPorId(id)
+
+    fun obtenerTodos() =
+        dao.obtenerTodos()
+
 }

@@ -1,7 +1,7 @@
 package com.siefb.app.data.converters
 
 import androidx.room.TypeConverter
-import com.siefb.app.data.entities.TipoMovimiento
+import com.siefb.app.data.enums.TipoMovimiento
 import java.time.LocalDate
 
 class Converters {
@@ -15,10 +15,17 @@ class Converters {
         date?.let { LocalDate.parse(it) }
 
     @TypeConverter
-    fun fromTipoMovimiento(tipo: TipoMovimiento): String =
-        tipo.name
+    fun fromTipoMovimiento(
+        tipoMovimiento: TipoMovimiento
+    ): String {
+        return tipoMovimiento.name
+    }
 
     @TypeConverter
-    fun toTipoMovimiento(valor: String): TipoMovimiento =
-        TipoMovimiento.valueOf(valor)
+    fun toTipoMovimiento(
+        valor: String
+    ): TipoMovimiento {
+        return TipoMovimiento.valueOf(valor)
+    }
+
 }

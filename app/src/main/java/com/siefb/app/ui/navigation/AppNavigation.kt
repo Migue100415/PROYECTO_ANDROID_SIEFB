@@ -37,6 +37,10 @@ import com.siefb.app.ui.screens.entrenamiento.EntrenamientoFormScreen
 import com.siefb.app.ui.screens.partido.PartidoListScreen
 import com.siefb.app.viewmodel.partido.PartidoViewModel
 import com.siefb.app.ui.screens.partido.PartidoFormScreen
+import com.siefb.app.ui.screens.registrocontable.RegistroContableFormScreen
+import com.siefb.app.ui.screens.registrocontable.RegistroContableListScreen
+
+import com.siefb.app.viewmodel.registrocontable.RegistroContableViewModel
 
 @Composable
 fun AppNavigation() {
@@ -97,6 +101,11 @@ fun AppNavigation() {
             factory = AppViewModelFactory(application)
         )
 
+    val registroContableViewModel: RegistroContableViewModel =
+        viewModel(
+            factory = AppViewModelFactory(application)
+        )
+
     NavHost(
         navController = navController,
         startDestination = Routes.Home.route
@@ -147,7 +156,14 @@ fun AppNavigation() {
                         Routes.Partidos.route
                     )
 
-                }
+                },
+                onRegistrosContablesClick = {
+
+                    navController.navigate(
+                        Routes.RegistrosContables.route
+                    )
+
+                },
 
 
             )
@@ -444,6 +460,60 @@ fun AppNavigation() {
                 partidoId = partidoId,
 
                 viewModel = partidoViewModel,
+
+                onGuardar = {
+
+                    navController.popBackStack()
+
+                }
+
+            )
+
+        }
+
+        composable(
+            Routes.RegistrosContables.route
+        ) {
+
+            RegistroContableListScreen(
+
+                viewModel = registroContableViewModel,
+
+                onAgregarClick = {
+
+                    navController.navigate(
+                        Routes.RegistroContableForm.createRoute()
+                    )
+
+                },
+
+                onEditarClick = { registroId ->
+
+                    navController.navigate(
+                        Routes.RegistroContableForm.createRoute(
+                            registroId
+                        )
+                    )
+
+                }
+            )
+
+        }
+        composable(
+            Routes.RegistroContableForm.route
+        ) { backStackEntry ->
+
+            val registroId =
+                backStackEntry.arguments
+                    ?.getString("registroId")
+                    ?.toIntOrNull()
+                    ?: -1
+
+            RegistroContableFormScreen(
+
+                registroId = registroId,
+
+                viewModel = registroContableViewModel,
 
                 onGuardar = {
 

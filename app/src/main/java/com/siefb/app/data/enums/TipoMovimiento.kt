@@ -1,4 +1,4 @@
-package com.siefb.app.data.entities
+package com.siefb.app.data.enums
 
 enum class TipoMovimiento {
     ENTRADA,

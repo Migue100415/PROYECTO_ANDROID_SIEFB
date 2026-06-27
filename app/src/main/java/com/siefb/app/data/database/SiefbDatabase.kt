@@ -24,6 +24,7 @@ import com.siefb.app.data.entities.PersonaEntity
 import com.siefb.app.data.entities.ProfesionalDeportivoEntity
 import com.siefb.app.data.entities.RegistroContableEntity
 import com.siefb.app.data.entities.TrabajadorEntity
+import com.siefb.app.data.enums.TipoMovimiento
 
 @Database(
     entities = [
@@ -36,7 +37,7 @@ import com.siefb.app.data.entities.TrabajadorEntity
         PartidoEntity::class,
         RegistroContableEntity::class,
         JugadorEntrenamientoEntity::class,
-        JugadorPartidoEntity::class
+        JugadorPartidoEntity::class,
     ],
     version = 1,
     exportSchema = false
@@ -63,4 +64,5 @@ abstract class SiefbDatabase : RoomDatabase() {
     abstract fun administradorDao(): AdministradorDao
 
     abstract fun profesionalDeportivoDao(): ProfesionalDeportivoDao
+
 }
